@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NANDA KISHORE BOT
 
-## Getting Started
+NANDA KISHORE BOT is a responsive chat app powered by Groq's GPT-OSS 120B model. It streams answers and saves searchable conversations in this browser.
 
-First, run the development server:
+## Get a Groq API key
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Open [console.groq.com](https://console.groq.com/) and sign in or create an account.
+2. Open **API Keys**, choose **Create API Key**, and copy the new key. Groq only shows the full key when it is created.
+3. If you have shared a key in a message, screenshot, or public repository, revoke it from the API Keys page and create a replacement.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Run locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Copy `.env.example` to `.env.local` in the project root.
+2. Open `.env.local` and replace the example value with your Groq key:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```dotenv
+   GROQ_API_KEY=your_new_groq_api_key
+   ```
 
-## Learn More
+3. In a terminal at the project root, run:
 
-To learn more about Next.js, take a look at the following resources:
+   ```powershell
+   npm install
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Open [http://localhost:3000](http://localhost:3000).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Keep the key in `.env.local`. That file is ignored by Git; do not put the key in frontend code, screenshots, or a committed file. The chat route sends requests to Groq from the server, so the key is not included in browser requests. Restart the dev server after changing the key.
 
-## Deploy on Vercel
+## History and search
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Conversation history is stored in this browser's local storage. Use the sidebar search to find words in conversation titles and messages. History is not uploaded or synced between browsers. Clearing this browser's site data removes it.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Model
+
+The API route uses Groq's `openai/gpt-oss-120b` model with medium reasoning effort. Change the `model` field in `src/app/api/chat/route.ts` to use another model available to your Groq account.
